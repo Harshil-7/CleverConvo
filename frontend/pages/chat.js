@@ -8,9 +8,6 @@ const chat = () => {
     <div>
       <Chatting />
       <Modal />
-
-      {/* SCRIPT */}
-      <script type="module" src="scripts.js"></script>
     </div>
   );
 };

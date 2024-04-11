@@ -18,10 +18,9 @@ import {
 import { useStateContext } from "../Context/index";
 
 const index = () => {
-  const { DAPP_NAME } = useStateContext();
+  const { APP_NAME } = useStateContext();
   return (
-    <div className="icon-custom">
-      {DAPP_NAME}
+    <div>
       <Header />
       <HeroSection />
       <Service />

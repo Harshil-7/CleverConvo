@@ -45,7 +45,7 @@ const SideBar = () => {
                 data-bs-target="#chat"
                 role="tab"
                 aria-controls="chat"
-                aria-selected="true"
+                aria-selected="false"
               >
                 <BsFillChatFill className="icon-custom" />
                 <span>Chat</span>

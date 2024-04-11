@@ -1,7 +1,7 @@
 import React from "react";
 
 //Internal import
-import { SideBar, Chat, Help, History, Sitting } from "./index";
+import { SideBar, Chat, Help, History, Setting } from "./index";
 
 const Chatting = () => {
   return (
@@ -11,7 +11,7 @@ const Chatting = () => {
         <Chat />
         <History />
         <Help />
-        <Sitting />
+        <Setting />
       </div>
     </section>
   );

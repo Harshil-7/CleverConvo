@@ -72,7 +72,7 @@ const Help = () => {
                       </button>
                     </h2>
                     <div
-                      className="accordion-sollapse collapse show"
+                      className="accordion-sollapse collapse "
                       id="panelsStayOpen-collapseOne"
                       aria-labelledby="panelsStayOpen-headingOne"
                     >
