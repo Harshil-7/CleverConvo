@@ -4,8 +4,8 @@ import { BsArrowUpRight } from "react-icons/bs";
 const Service = () => {
   const features = [
     {
-      title: "Copy Write",
-      Description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Elevate Your Conversations",
+      Description: "AI-Powered Chatbots for Seamless Interactions",
       image: "service-title.svg",
       icons: [
         {
@@ -19,8 +19,8 @@ const Service = () => {
       ],
     },
     {
-      title: "Digital Marketing",
-      Description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Maximize Engagement",
+      Description: " Multimodal Conversations Tailored to Your Needs",
       image: "service-title.svg",
       icons: [
         {
@@ -34,8 +34,8 @@ const Service = () => {
       ],
     },
     {
-      title: "SEO Sepcialist",
-      Description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Unlock Insights",
+      Description: " Data Analytics Tools for Informed Decision-Making",
       image: "service-title.svg",
       icons: [
         {
@@ -49,8 +49,8 @@ const Service = () => {
       ],
     },
     {
-      title: "Content marker",
-      Description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Enhanced Conversations",
+      Description: "CleverConvo's Suite for All type of Conversations.",
       image: "service-title.svg",
       icons: [
         {
@@ -103,17 +103,16 @@ const Service = () => {
                 <div className="title">
                   <h2>For All Kind Of Creators</h2>
                   <h3>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Empowering creativity across all domains with CleverConvo's
+                    versatile toolkit.
                   </h3>
                 </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                  non nobis inventore cum dolorem itaque tempore, suscipit
-                  reprehenderit ut. Molestiae voluptatem officiis, ipsa error
-                  aliquam sapiente minima fugiat atque dicta! Suscipit error
-                  obcaecati impedit molestiae. Facere veritatis id deserunt
-                  sint, in exercitationem maiores ducimus odit ea mollitia
-                  quaerat ullam et eaque cumque.
+                <p style={{ textAlign: "justify" }}>
+                  CleverConvo is your go-to platform for unleashing creativity.
+                  Whether you're an entrepreneur, artist, or marketer, our
+                  versatile toolkit has everything you need to connect with your
+                  audience and bring your ideas to life. Join us today and
+                  unlock your full potential!
                 </p>
                 <a href="#" data-cursor="pointer" className="btn-arrow">
                   <div className="icon-arrow">
