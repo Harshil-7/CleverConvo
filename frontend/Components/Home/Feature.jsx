@@ -4,7 +4,7 @@ const Feature = () => {
   const itmes = [
     {
       title: "Code Generator",
-      Description: "AI-Powered Chatbots for Seamless Interactions",
+      Description: "Empower your projects with CleverConvo's code generation",
       icons: [
         {
           icon: "code.svg",
@@ -17,22 +17,24 @@ const Feature = () => {
       ],
     },
     {
-      title: "ASO expert",
-      Description: " Multimodal Conversations Tailored to Your Needs",
+      title: "Translator",
+      Description:
+        "Facilitate global communication effortlessly with CleverConvo's Translator",
       icons: [
         {
-          icon: "play.svg",
+          icon: "message.svg",
           style: "outline-icon",
         },
         {
-          icon: "play-bold.svg",
+          icon: "message-bold.svg",
           style: "bold-icon",
         },
       ],
     },
     {
-      title: "Inst Caption",
-      Description: " Data Analytics Tools for Informed Decision-Making",
+      title: "Image Generator",
+      Description:
+        "Create eye-catching visuals effortlessly with CleverConvo's Image Generator",
       icons: [
         {
           icon: "insta.svg",
@@ -46,7 +48,8 @@ const Feature = () => {
     },
     {
       title: "Email Generator",
-      Description: "CleverConvo's Suite for All type of Conversations.",
+      Description:
+        "Effortlessly create professional email templates with CleverConvo's Email Generator",
       icons: [
         {
           icon: "mail.svg",
@@ -59,8 +62,9 @@ const Feature = () => {
       ],
     },
     {
-      title: "Hashtag Writer",
-      Description: "CleverConvo's Suite for All type of Conversations.",
+      title: "Social Media",
+      Description:
+        "Expand your reach and engagement with CleverConvo's Social Media integration",
       icons: [
         {
           icon: "hashtag.svg",
@@ -73,8 +77,9 @@ const Feature = () => {
       ],
     },
     {
-      title: "E-commerce",
-      Description: "CleverConvo's Suite for All type of Conversations.",
+      title: "Content Writer",
+      Description:
+        "Craft compelling content with CleverConvo's Content Writer.",
       icons: [
         {
           icon: "box.svg",
@@ -87,8 +92,9 @@ const Feature = () => {
       ],
     },
     {
-      title: "Ads and Marketing",
-      Description: "CleverConvo's Suite for All type of Conversations.",
+      title: "Music Generator",
+      Description:
+        "Compose melodies effortlessly with CleverConvo's innovative music generation tool.",
       icons: [
         {
           icon: "marketing.svg",
@@ -101,15 +107,16 @@ const Feature = () => {
       ],
     },
     {
-      title: "YouTube",
-      Description: "CleverConvo's Suite for All type of Conversations.",
+      title: "Video Generator",
+      Description:
+        "Create dynamic videos effortlessly with CleverConvo's Video Generator.",
       icons: [
         {
-          icon: "message.svg",
+          icon: "play.svg",
           style: "outline-icon",
         },
         {
-          icon: "message-bold.svg",
+          icon: "play-bold.svg",
           style: "bold-icon",
         },
       ],
@@ -138,7 +145,10 @@ const Feature = () => {
       </div>
       <div className="container">
         <div className="title-basic">
-          <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+          <h2>
+            Unlock limitless possibilities with CleverConvo's innovative
+            features
+          </h2>
         </div>
         <div className="swiper featureSlider">
           <div className="swiper-wrapper">

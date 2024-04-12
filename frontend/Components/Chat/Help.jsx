@@ -43,7 +43,7 @@ const Help = () => {
                 data-aos-duration="1000"
                 data-aos-delay="100"
               >
-                FAQ
+                FAQ's
               </h3>
             </div>
             <div className="card-body px-sm-4 px-3">
@@ -72,7 +72,7 @@ const Help = () => {
                       </button>
                     </h2>
                     <div
-                      className="accordion-sollapse collapse "
+                      className="accordion-collapse collapse "
                       id="panelsStayOpen-collapseOne"
                       aria-labelledby="panelsStayOpen-headingOne"
                     >
