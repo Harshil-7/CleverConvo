@@ -77,3 +77,47 @@
 .new_space {
   padding: 0 1rem;
 }
+
+.tick-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.tick-item img {
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .tick-item {
+    display: inline-flex;
+    align-items: center;
+    width: 85%;
+  }
+}
+.pointer-link {
+  cursor: pointer;
+}
+
+.hologram-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hologram-images {
+  position: relative;
+}
+
+.bottom-image,
+.ray-image,
+.face-image {
+  width: 50%; /* Adjust as needed */
+}
+
+/* Positioning for the overlay */
+.face-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure the face image appears on top */
+}

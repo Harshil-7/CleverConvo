@@ -46,15 +46,15 @@ const Info = () => {
           </p>
 
           <ul>
-            <li>
+            <li className="tick-item">
               <img src="assets/svg/tick.svg" alt="tick" className="img-fluid" />
               Multimodal Experience
             </li>
-            <li>
+            <li className="tick-item">
               <img src="assets/svg/tick.svg" alt="tick" className="img-fluid" />
               Get Details on any topic
             </li>
-            <li>
+            <li className="tick-item">
               <img src="assets/svg/tick.svg" alt="tick" className="img-fluid" />
               Quick Advisor to help you
             </li>

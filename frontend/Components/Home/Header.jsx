@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
+import Link from "next/link";
 
 //INTERNAL IMPORT
 import { useStateContext } from "../../Context/index";
@@ -50,15 +51,17 @@ const Header = () => {
           <HiMenuAlt3 />
         </span>
       </button>
-      <a href="/">
-        <img
-          src="/assets/images/logo3.png"
-          alt="logo"
-          className="img-fluid"
-          height={70}
-          width={250}
-        />{" "}
-      </a>
+      <Link href="/">
+        <a>
+          <img
+            src="/assets/images/logo3.png"
+            alt="logo"
+            className="img-fluid"
+            height={70}
+            width={250}
+          />
+        </a>
+      </Link>
       {/* NAVLIST */}
       <nav className="header-nav-middle">
         <div className="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
@@ -83,13 +86,14 @@ const Header = () => {
                       menu.name === activeStyle ? "active" : ""
                     }`}
                   >
-                    <a
-                      href={`${menu.link}`}
-                      className="nav-link"
-                      onClick={() => handleLinkClick(menu.name)}
-                    >
-                      {menu.name}
-                    </a>
+                    <Link href={`${menu.link}`}>
+                      <a
+                        className="nav-link"
+                        onClick={() => handleLinkClick(menu.name)}
+                      >
+                        {menu.name}
+                      </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -97,13 +101,14 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      <a
-        data-cursor="pointer"
-        href="#"
-        className="btn btn-theme d-sm-inline-block d-none"
-      >
-        <span>Login Now</span>
-      </a>
+      <Link href="/login">
+        <a
+          data-cursor="pointer"
+          className="btn btn-theme d-sm-inline-block d-none"
+        >
+          <span>Login Now</span>
+        </a>
+      </Link>
 
       <span className="new_space"></span>
       {/* {address ? (

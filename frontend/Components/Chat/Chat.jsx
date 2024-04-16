@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { MdPaid } from "react-icons/md";
+import Link from "next/link";
 
 //internal import
 import { Form } from "./index";
@@ -104,13 +105,16 @@ const Chat = () => {
             >
               <BiMenu className="mobil_custom_menu" />
             </button>
-            <a href="/" className="logo-icon d-flex d-md-none">
-              <img
-                src="assets/svg/logo-icon.svg"
-                className="img-fluid"
-                alt=""
-              />
-            </a>
+            <Link href="/">
+              <a className="logo-icon d-flex d-md-none">
+                <img
+                  src="assets/svg/logo-icon.svg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </a>
+            </Link>
+
             <h3 id="targetDiv">{active}</h3>
           </div>
         </div>

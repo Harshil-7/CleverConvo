@@ -2,6 +2,7 @@ import React from "react";
 import { BsFillChatFill, BsQuestionSquare, BsStar } from "react-icons/bs";
 import { BiTransferAlt, BiMenu } from "react-icons/bi";
 import { MdPaid, MdSettings, MdClose } from "react-icons/md";
+import Link from "next/link";
 
 const SideBar = () => {
   return (
@@ -27,9 +28,15 @@ const SideBar = () => {
           >
             <MdClose className="icon-custom" />
           </button>
-          <a href="/" className="logo-icon d-none d-md-flex">
-            <img src="assets/svg/logo-icon.svg" className="img-fluid" alt="" />
-          </a>
+          <Link href="/">
+            <a className="logo-icon d-none d-md-flex">
+              <img
+                src="assets/svg/logo-icon.svg"
+                className="img-fluid"
+                alt=""
+              />
+            </a>
+          </Link>
           <ul className="nav nav-tabs menu-wrapper" id="myTab" role="tablist">
             <li
               className="nav-item"

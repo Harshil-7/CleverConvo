@@ -7730,6 +7730,7 @@ header .offcanvas-backdrop {
 .login-section {
   background-image: url("../images/login-bg.jpg");
   background-size: cover;
+
   height: 100%;
   padding-left: calc(40px + 120 * (100vw - 991px) / 929);
   padding-right: calc(40px + 120 * (100vw - 991px) / 929);
@@ -7740,7 +7741,7 @@ header .offcanvas-backdrop {
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+
   padding-bottom: 60px;
   padding-top: 52px;
 }
