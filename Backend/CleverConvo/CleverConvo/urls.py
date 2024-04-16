@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from chat.views import FormSubmissionView
+from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',FormSubmissionView.as_view()),
+    path('api/',include('djoser.urls')),
+    path('api/',include('djoser.urls.jwt')),
 ]

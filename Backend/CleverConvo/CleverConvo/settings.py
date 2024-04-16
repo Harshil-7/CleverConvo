@@ -11,23 +11,31 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+from os import getenv,path
 from datetime import timedelta
+import dotenv
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+dotenv_file = BASE_DIR / '.env'
+
+if path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ei1%(c3u_w_6aj=_rouc*ea0s6_1x$z&h$1(yjl_edz5%_o9eh'
+
+SECRET_KEY = getenv('DJANGO_SECRET_KEY',get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv('DEBUG','False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS','127.0.0.1,localhost').split(',')
 
 
 # Application definition
@@ -42,11 +50,12 @@ INSTALLED_APPS = [
 ]
 
 EXTERNAL_APPS = [
-    # 'account',
     'chat',
+    'users',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'djoser',
 ] 
 
 INSTALLED_APPS += EXTERNAL_APPS
@@ -129,13 +138,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIR = {
-    os.path.join(BASE_DIR,'public/static')
-}
+STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'public/static')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -144,7 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'users.UserAccount'
 
 #EMAIL CONFIGURATIONS
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -155,41 +161,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_USE_TLS = True
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ),
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 
-# }
+}
 
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL':'password-reset/{uid}/{token}',
+    'SEND_ACTIVAION_EMAIL':True,
+    'ACTIVATION_URL':'activation/{uid}/{token}',
+    'USER_CREATE_PASSWORD_RETYPE':True,
+    'SET_PASSWORD_RETYPE':True,
+    'PASSWORD_RESET_CONFIRM_RETYPE':True,
+    'TOKEN_MODEL':None,
+}
 
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
-#     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-   
-
-
-
-#     "AUTH_HEADER_TYPES": ("Bearer",),
-#     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
-#     "USER_ID_FIELD": "id",
-#     "USER_ID_CLAIM": "user_id",
-#     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
-
-#     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-#     "TOKEN_TYPE_CLAIM": "token_type",
-#     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
-
-#     "JTI_CLAIM": "jti",
-
-
-#     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
-#     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
-#     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
-#     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
-#     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
-#     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
-# }
 
 # # USER PASSWORD RESET LINK TIME OUT CONFIGURATIONS
 # PASSWORD_RESET_TIMEOUT = 900 #900 SEC = 15 MIN

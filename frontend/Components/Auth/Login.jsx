@@ -78,6 +78,8 @@ const Login = ({ setActiveTab }) => {
             >
               Signup
             </a>
+            <br />
+            <a className="pointer-link">Forgot Password?</a>
           </h4>
         )}
         <a
