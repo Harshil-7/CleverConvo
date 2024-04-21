@@ -42,11 +42,22 @@ const Login = ({ setActiveTab }) => {
                 id="emialid"
               />
             </div>
+
             <div className="mb-2 form-group">
-              <i className="iconsax" data-icon="lock-2"></i>
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <i className="iconsax" data-icon="lock-2"></i>
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+
+                <a className="pointer-link">Forgot Password?</a>
+              </div>
               <input
                 type="password"
                 placeholder="Enter your password "
@@ -78,8 +89,6 @@ const Login = ({ setActiveTab }) => {
             >
               Signup
             </a>
-            <br />
-            <a className="pointer-link">Forgot Password?</a>
           </h4>
         )}
         <a

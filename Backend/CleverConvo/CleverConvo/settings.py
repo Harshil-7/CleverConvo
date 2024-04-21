@@ -56,6 +56,7 @@ EXTERNAL_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'djoser',
+    'social_django',
 ] 
 
 INSTALLED_APPS += EXTERNAL_APPS
@@ -152,18 +153,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.UserAccount'
 
-#EMAIL CONFIGURATIONS
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-# EMAIL_USE_TLS = True
+# EMAIL CONFIGURATIONS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = getenv('EMAIL_PASS')
+EMAIL_USE_TLS = True
+
+DOMAIN = getenv('DOMAIN')
+SITE_NAME='CleverConvo'
 
 
+AUTHENTICATION_BACKENDS =[
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+#JWT CONFIGURATIONS
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'users.authentication.CustomJWTAuthentication',
     ],
      'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -171,22 +182,70 @@ REST_FRAMEWORK = {
 
 }
 
+#JWT SETTINGS
+SIMPLE_JWT ={
+    'AUTH_HEADER_TYPES':('JWT',),
+    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME':timedelta(days=1),
+    'UPDATE_LAST_LOGIN':True,
+}
+
+#Djoser Settings
 DJOSER = {
+    'LOGIN_FIELD':'email',
     'PASSWORD_RESET_CONFIRM_URL':'password-reset/{uid}/{token}',
-    'SEND_ACTIVAION_EMAIL':True,
-    'ACTIVATION_URL':'activation/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL':True,
+    'ACTIVATION_URL':'activate/{uid}/{token}',
     'USER_CREATE_PASSWORD_RETYPE':True,
     'SET_PASSWORD_RETYPE':True,
     'PASSWORD_RESET_CONFIRM_RETYPE':True,
     'TOKEN_MODEL':None,
+    'SEND_CONFIRMATION_EMAIL':True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION':True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND':True,
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS':getenv('REDIRECT_URLS').split(','),
+    'SERIALIZERS':{ 
+        'user_create':'users.serializers.UserCreateSerializer',
+        'user':'users.serializers.UserCreateSerializer',
+        'user_delete':'djoser.serializers.UserCreateSerializer'
+    }
 }
+
+#Cookie Configuration
+AUTH_COOKIE = 'access'
+AUTH_COOKIE_ACCESS_MAX_AGE = 60*5
+AUTH_COOKIE_REFRESH_MAX_AGE = 60*60*24
+AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE','True') == 'True'
+AUTH_COOKIE_HTTP_ONLY = True
+AUTH_COOKIE_PATH = '/'
+AUTH_COOKIE_SAMESITE = 'None'
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv('GOOGLE_AUTH_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv('GOOGLE_AUTH_SECRET_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'openid',
+]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA =['first_name','last_name']
+
+
+SOCIAL_AUTH_GITHUB_KEY  = getenv('GITHUB_AUTH_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = getenv('GITHUB_AUTH_SECRET_KEY')
+SOCIAL_AUTH_GITHUB_SCOPE = ['read:user', 'user:email']
+SOCIAL_AUTH_GITHUB_EXTRA_DATA = ['first_name', 'last_name']
+
+
 
 
 # # USER PASSWORD RESET LINK TIME OUT CONFIGURATIONS
 # PASSWORD_RESET_TIMEOUT = 900 #900 SEC = 15 MIN
 
+#Cors Sttings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ] 
 
+CORS_ALLOWED_CREDENTIALS = True
