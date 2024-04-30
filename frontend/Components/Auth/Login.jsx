@@ -91,37 +91,37 @@ const Login = ({ setActiveTab }) => {
             </a>
           </h4>
         )}
-        <a
-          href="#"
-          data-cursor="pointer"
-          className="btn-solid w-100 text-center mt-5"
-        >
-          <FcGoogle
-            style={{
-              width: "25px",
-              height: "auto",
-              verticalAlign: "text-bottom",
-            }}
-          />
-          {"  "}
-          Google
-        </a>
-        <a
-          href="#"
-          data-cursor="pointer"
-          className="btn-solid w-100 text-center mt-3"
-        >
-          <FaGithub
-            style={{
-              width: "25px",
-              height: "auto",
-              verticalAlign: "text-bottom",
-            }}
-          />
-          {"  "}
-          Github
-        </a>
       </form>
+      <a
+        href="#"
+        data-cursor="pointer"
+        className="btn-solid w-100 text-center mt-5"
+      >
+        <FcGoogle
+          style={{
+            width: "25px",
+            height: "auto",
+            verticalAlign: "text-bottom",
+          }}
+        />
+        {"  "}
+        Google
+      </a>
+      <a
+        href="#"
+        data-cursor="pointer"
+        className="btn-solid w-100 text-center mt-3"
+      >
+        <FaGithub
+          style={{
+            width: "25px",
+            height: "auto",
+            verticalAlign: "text-bottom",
+          }}
+        />
+        {"  "}
+        Github
+      </a>
     </div>
   );
 };
