@@ -15,6 +15,10 @@ from os import getenv,path
 from datetime import timedelta
 import dotenv
 from django.core.management.utils import get_random_secret_key
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,13 +54,18 @@ INSTALLED_APPS = [
 ]
 
 EXTERNAL_APPS = [
+    #INTERNAL APPS
     'chat',
     'users',
+
+    #THIRD PARTY APPS
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
     'djoser',
     'social_django',
+    'cloudinary',
+
 ] 
 
 INSTALLED_APPS += EXTERNAL_APPS
@@ -153,6 +162,14 @@ MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#CLOUDINARY COFIGURATIONS
+cloudinary.config(
+    cloud_name= getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key= getenv('CLOUDINARY_API_KEY'),
+    api_secret= getenv('CLOUDINARY_API_SECRET'),
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.CloudinaryMediaFileStorage'
 
 
 AUTH_USER_MODEL = 'users.UserAccount'

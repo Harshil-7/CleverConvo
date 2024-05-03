@@ -5,7 +5,10 @@ from dotenv import load_dotenv
 from clarifai_grpc.channel.clarifai_channel import ClarifaiChannel
 from clarifai_grpc.grpc.api import resources_pb2, service_pb2, service_pb2_grpc
 from clarifai_grpc.grpc.api.status import status_code_pb2
-
+import cloudinary
+import cloudinary.uploader
+import requests
+import io
 
 load_dotenv()
 
@@ -23,12 +26,8 @@ def get_response(prompt,active):
         if active=="Image Generator":
             channel = ClarifaiChannel.get_grpc_channel()
             stub = service_pb2_grpc.V2Stub(channel)
-
             metadata = (('authorization', 'Key ' + PAT),)
-
             userDataObject = resources_pb2.UserAppIDSet(user_id=USER_ID, app_id=APP_ID)
-
-
             post_model_outputs_response = stub.PostModelOutputs(
                 service_pb2.PostModelOutputsRequest(
                     user_app_id=userDataObject,  
@@ -52,16 +51,11 @@ def get_response(prompt,active):
                 raise Exception("Post model outputs failed, status: " + post_model_outputs_response.status.description)
 
             output = post_model_outputs_response.outputs[0].data.image.base64
-
-            image_filename = f"gen-image.jpg"
-            with open(image_filename, 'wb') as f:
-                f.write(output)
-            
-            img_url = "C:\\Users\\Umiya Mataji\\Desktop\\Harshil\\projects\\CleverConvo\\Backend\\CleverConvo\\gen-image.jpg"
-            return {"bot": img_url}
+            upload_result = cloudinary.uploader.upload(output,format="png")
+            image_url = upload_result["url"]
+            return image_url
 
         elif active=="Music Generator":
-    
             output = replicate.run(
                 "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05",
                 input={
@@ -73,10 +67,13 @@ def get_response(prompt,active):
                 }
             )
             audio_url = output['audio']
-            return {"bot": audio_url} 
-           
+            audio_response = requests.get(audio_url)
+            audio_data = audio_response.content                
+            upload_result = cloudinary.uploader.upload(io.BytesIO(audio_data), resource_type="raw", format="mp3")
+            audio = upload_result["secure_url"]
+            return audio
+                    
         elif active=="Video Generator":
-    
             input = {
                     "fps": 24,
                     "width": 576,
@@ -90,7 +87,12 @@ def get_response(prompt,active):
                         "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
                         input=input
             )
-            return {"bot": output} 
+            video_response = requests.get(output[0])
+            video_data = video_response.content                
+            upload_result = cloudinary.uploader.upload(io.BytesIO(video_data), resource_type="raw", format="mp4")
+            video = upload_result["secure_url"]
+            return video 
+                    
            
         else:
             generation_config = {"temperature":0.9,"top_p":1,"top_k":1,"max_output_tokens":2048}
@@ -98,11 +100,9 @@ def get_response(prompt,active):
 
 
             response = model.generate_content([prompt])
-
-            print(response.text)
             output_text = response.text
           
-            return {"bot": output_text}  
+            return output_text
     except Exception as e:
         return {"error": str(e)}
 

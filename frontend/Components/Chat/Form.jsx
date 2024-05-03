@@ -39,6 +39,9 @@ const Form = ({ close, active }) => {
 
     imgElement.src = url;
 
+    imgElement.style.width = 500 + "px";
+    imgElement.style.height = 500 + "px";
+
     element.appendChild(imgElement);
   }
 
@@ -126,7 +129,6 @@ const Form = ({ close, active }) => {
     clearInterval(loadInterval);
     messageDiv.innerHTML = " ";
 
-    console.log(response);
     if (response.ok) {
       const data = await response.json();
       const parsedData = data.bot;

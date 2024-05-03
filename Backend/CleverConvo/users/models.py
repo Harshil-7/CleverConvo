@@ -5,6 +5,7 @@ from django.contrib.auth.models import(
     PermissionsMixin
 )
 from django.core.validators import MinLengthValidator, MaxLengthValidator
+from cloudinary.models import CloudinaryField
 
 
 class UserAccountManager(BaseUserManager):
@@ -52,7 +53,7 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
         ],
         max_length=10,
     )
-    profile_image = models.ImageField()
+    profile_pic = CloudinaryField('image', default=None)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -62,7 +63,7 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name','last_name','phone_number']
+    REQUIRED_FIELDS = ['first_name','last_name','phone_number','profile_pic']
 
     def __str__(self):
         return self.email
