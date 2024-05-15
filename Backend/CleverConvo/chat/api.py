@@ -74,24 +74,27 @@ def get_response(prompt,active):
             return audio
                     
         elif active=="Video Generator":
-            input = {
-                    "fps": 24,
-                    "width": 576,
-                    "height": 576,
-                    "prompt": prompt,
-                    "guidance_scale": 17.5,
-                    "negative_prompt": "very blue, dust, noisy, washed out, ugly, distorted, broken"
-                }
+            try:
+                input = {
+                        "fps": 24,
+                        "width": 576,
+                        "height": 576,
+                        "prompt": prompt,
+                        "guidance_scale": 17.5,
+                        "negative_prompt": "very blue, dust, noisy, washed out, ugly, distorted, broken"
+                    }
 
-            output = replicate.run(
-                        "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
-                        input=input
-            )
-            video_response = requests.get(output[0])
-            video_data = video_response.content                
-            upload_result = cloudinary.uploader.upload(io.BytesIO(video_data), resource_type="raw", format="mp4")
-            video = upload_result["secure_url"]
-            return video 
+                output = replicate.run(
+                            "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
+                            input=input
+                )
+                video_response = requests.get(output[0])
+                video_data = video_response.content                
+                upload_result = cloudinary.uploader.upload(io.BytesIO(video_data), resource_type="raw", format="mp4")
+                video = upload_result["secure_url"]
+                return video 
+            except Exception as e:
+                print(e)
                     
            
         else:

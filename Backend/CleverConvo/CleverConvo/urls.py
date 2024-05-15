@@ -20,7 +20,8 @@ from chat.views import FormSubmissionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',FormSubmissionView.as_view()),
+    # path('',FormSubmissionView.as_view()),
     path('api/',include('users.urls')),
+    path('',include('chat.urls')),
    
 ]

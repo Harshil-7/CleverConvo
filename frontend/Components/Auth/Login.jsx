@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaFirstOrderAlt, FaGithub } from "react-icons/fa";
+import { useLogin } from "../../hooks";
+import Spinner from "./Spinner";
 
 const Login = ({ setActiveTab }) => {
-  const [user, setuser] = useState();
+  const { email, password, isLoading, onChange, onSubmit, handleTabToggle } =
+    useLogin(setActiveTab);
 
-  useEffect(() => {
-    const str = localStorage.getItem("userDetail");
-    const parsedObj = JSON.parse(str);
-
-    if (parsedObj?.name) {
-      setuser(parsedObj);
-    }
-  }, []);
-
-  const handleTabToggle = (tab) => {
-    setActiveTab(tab);
-  };
   return (
     <div
       className="tab-pane fade show active"
@@ -25,103 +17,101 @@ const Login = ({ setActiveTab }) => {
       aria-labelledby="login-tab"
       tabIndex="0"
     >
-      <form className="auth-form">
-        {user ? (
-          ""
-        ) : (
-          <>
-            <div className="mb-3 form-group">
-              <i className="iconsax" data-icon="mail"></i>
-              <label htmlFor="emailid" className="form-label">
-                Email ID
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your mail-id"
-                className="form-control"
-                id="emialid"
-              />
-            </div>
+      <form className="auth-form" onSubmit={onSubmit}>
+        <div className="mb-3 form-group">
+          <FaFirstOrderAlt className="iconsax" size={45} />
+          <label htmlFor="email" className="form-label">
+            Email ID
+          </label>
+          <input
+            type="email"
+            placeholder="Enter your mail id"
+            onChange={onChange}
+            className="form-control"
+            id="email"
+            value={email}
+            required
+          />
+        </div>
 
-            <div className="mb-2 form-group">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <i className="iconsax" data-icon="lock-2"></i>
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
+        <div className="mb-2 form-group">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <FaFirstOrderAlt className="iconsax" size={45} />
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
 
-                <a className="pointer-link">Forgot Password?</a>
-              </div>
-              <input
-                type="password"
-                placeholder="Enter your password "
-                className="form-control"
-                id="password"
-              />
-            </div>
-          </>
-        )}
+            <Link href="" className="pointer-link">
+              Forgot Password?
+            </Link>
+          </div>
+          <input
+            type="password"
+            placeholder="Enter your password "
+            onChange={onChange}
+            className="form-control"
+            id="password"
+            value={password}
+            required
+          />
+        </div>
 
+        <button
+          type="submit"
+          data-cursor="pointer"
+          className="btn-solid w-100 text-centermt-4 pointer-link"
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : "Login"}
+        </button>
+        <h4 className="text-title text-center mt-2">
+          Don't have an Account?{" "}
+          <a
+            className="pointer-link"
+            onClick={(e) => {
+              handleTabToggle("signup");
+            }}
+          >
+            Signup
+          </a>
+        </h4>
         <a
-          href={user ? "/chat" : ""}
+          href="#"
+          data-cursor="pointer"
+          className="btn-solid w-100 text-center mt-5"
+        >
+          <FcGoogle
+            style={{
+              width: "25px",
+              height: "auto",
+              verticalAlign: "text-bottom",
+            }}
+          />
+          {"  "}
+          Google
+        </a>
+        <a
+          href="#"
           data-cursor="pointer"
           className="btn-solid w-100 text-center mt-3"
         >
-          {user ? "Start Chatting" : "Login"}
+          <FaGithub
+            style={{
+              width: "25px",
+              height: "auto",
+              verticalAlign: "text-bottom",
+            }}
+          />
+          {"  "}
+          Github
         </a>
-
-        {user ? (
-          ""
-        ) : (
-          <h4 className="text-title text-center mt-2">
-            Don't have an Account?{" "}
-            <a
-              className="pointer-link"
-              onClick={(e) => {
-                handleTabToggle("signup");
-              }}
-            >
-              Signup
-            </a>
-          </h4>
-        )}
       </form>
-      <a
-        href="#"
-        data-cursor="pointer"
-        className="btn-solid w-100 text-center mt-5"
-      >
-        <FcGoogle
-          style={{
-            width: "25px",
-            height: "auto",
-            verticalAlign: "text-bottom",
-          }}
-        />
-        {"  "}
-        Google
-      </a>
-      <a
-        href="#"
-        data-cursor="pointer"
-        className="btn-solid w-100 text-center mt-3"
-      >
-        <FaGithub
-          style={{
-            width: "25px",
-            height: "auto",
-            verticalAlign: "text-bottom",
-          }}
-        />
-        {"  "}
-        Github
-      </a>
     </div>
   );
 };

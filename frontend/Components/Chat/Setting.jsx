@@ -3,7 +3,7 @@ import { MdPaid } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
 
 //internal imports
-import { useStateContext } from "../../Context/index";
+// import { useStateContext } from "../../Context/index";
 
 const Setting = () => {
   const [user, setUser] = useState();

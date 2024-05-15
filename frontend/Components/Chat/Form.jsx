@@ -27,7 +27,6 @@ const Form = ({ close, active }) => {
       if (index < text.length) {
         element.innerHTML += text.charAt(index);
         index++;
-        scrollToLatestMessage();
       } else {
         clearInterval(interval);
       }
@@ -93,10 +92,46 @@ const Form = ({ close, active }) => {
     }
   };
 
+  async function fetchData(url, prompt, active, messageDiv) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          active: active,
+        }),
+      });
+      clearInterval(loadInterval);
+      messageDiv.innerHTML = " ";
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const parsedData = data.bot;
+        console.log(parsedData);
+
+        if (active == "Music Generator") {
+          showMusic(messageDiv, parsedData);
+        } else if (active == "Video Generator") {
+          showVideo(messageDiv, parsedData);
+        } else if (active == "Image Generator") {
+          showImage(messageDiv, parsedData);
+        } else {
+          typeText(messageDiv, parsedData);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
   function scrollToLatestMessage() {
     var chatContainer = document.getElementById("chat_container");
     var lastMessage = chatContainer.lastElementChild;
-    lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
+    lastMessage.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   const handleSubmit = async (e) => {
@@ -115,7 +150,38 @@ const Form = ({ close, active }) => {
     const messageDiv = document.getElementById(uniqueId);
 
     loader(messageDiv);
+    scrollToLatestMessage();
 
+    // switch (active) {
+    //   case "Image Generator":
+    //     fetchData(
+    //       "http://127.0.0.1:8000/generate-image/",
+    //       inputValue,
+    //       active,
+    //       messageDiv
+    //     );
+    //   case "Audio Generator":
+    //     fetchData(
+    //       "http://127.0.0.1:8000/generate-audio/",
+    //       inputValue,
+    //       active,
+    //       messageDiv
+    //     );
+    //   case "Video Generator":
+    //     fetchData(
+    //       "http://127.0.0.1:8000/generate-video/",
+    //       inputValue,
+    //       active,
+    //       messageDiv
+    //     );
+    //   default:
+    //     fetchData(
+    //       "http://127.0.0.1:8000/generate-text/",
+    //       inputValue,
+    //       active,
+    //       messageDiv
+    //     );
+    // }
     const response = await fetch("http://127.0.0.1:8000", {
       method: "POST",
       headers: {
@@ -132,7 +198,7 @@ const Form = ({ close, active }) => {
     if (response.ok) {
       const data = await response.json();
       const parsedData = data.bot;
-
+      console.log(parsedData);
       if (active == "Music Generator") {
         showMusic(messageDiv, parsedData);
       } else if (active == "Video Generator") {

@@ -54,11 +54,11 @@ const AudioRecorder = ({ setInputValue }) => {
   return (
     <div>
       {!isRecording ? (
-        <a href="#" onClick={handleToggleRecording} className="mic-icon">
+        <a onClick={handleToggleRecording} className="mic-icon">
           <AiFillAudio className="icon-size" />
         </a>
       ) : (
-        <a href="#" onClick={handleToggleRecording} className="mic-icon">
+        <a onClick={handleToggleRecording} className="mic-icon">
           <TbPlayerPauseFilled className="icon-size" />
         </a>
       )}

@@ -1,38 +1,24 @@
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaFirstOrderAlt } from "react-icons/fa";
+import Spinner from "./Spinner";
+import { useRegister } from "../../hooks";
 
 const SignUp = ({ setActiveTab }) => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    passwordConfirm: "",
-  });
-
-  const handleFormFieldChange = (fieldName, e) => {
-    setUser({ ...user, [fieldName]: e.target.value });
-  };
-
-  const createAccount = (e) => {
-    e.preventDefault();
-    if (
-      user.name ||
-      user.email ||
-      user.phone ||
-      user.password ||
-      user.passwordConfirm
-    ) {
-      const jsonObj = JSON.stringify(user);
-      localStorage.setItem("userDetail", jsonObj);
-      window.location.reload();
-    }
-  };
-
-  const handleTabToggle = (tab) => {
-    setActiveTab(tab);
-  };
+  const {
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    password,
+    re_password,
+    isLoading,
+    handleTabToggle,
+    onChange,
+    onSubmit,
+  } = useRegister(setActiveTab);
 
   return (
     <div
@@ -42,82 +28,109 @@ const SignUp = ({ setActiveTab }) => {
       aria-labelledby="signup-tab"
       tabIndex="0"
     >
-      <form className="auth-form">
+      <form className="auth-form" onSubmit={onSubmit}>
         <div className="mb-3 form-group">
-          <i className="iconsax" data-icon="name"></i>
-          <label htmlFor="name" className="form-label">
-            Name
+          <FaFirstOrderAlt className="iconsax" size={45} />
+          <label htmlFor="first_name" className="form-label">
+            First Name
           </label>
           <input
             type="text"
-            placeholder="Enter your name"
-            onChange={(e) => handleFormFieldChange("name", e)}
+            placeholder="Enter your first name"
+            onChange={onChange}
             className="form-control"
-            id="name"
+            id="first_name"
+            value={first_name}
+            required
           />
         </div>
 
         <div className="mb-3 form-group">
-          <i className="iconsax" data-icon="mail"></i>
+          <FaFirstOrderAlt className="iconsax" size={45} />
+          <label htmlFor="last_name" className="form-label">
+            Last Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter your last name"
+            onChange={onChange}
+            className="form-control"
+            id="last_name"
+            value={last_name}
+            required
+          />
+        </div>
+
+        <div className="mb-3 form-group">
+          <FaFirstOrderAlt className="iconsax" size={45} />
           <label htmlFor="email" className="form-label">
             Email ID
           </label>
           <input
             type="email"
             placeholder="Enter your Email ID"
-            onChange={(e) => handleFormFieldChange("email", e)}
+            onChange={onChange}
             className="form-control"
             id="email"
+            value={email}
+            required
           />
         </div>
 
         <div className="mb-3 form-group">
-          <i className="iconsax" data-icon="phone"></i>
-          <label htmlFor="phone" className="form-label">
+          <FaFirstOrderAlt className="iconsax" size={45} />
+          <label htmlFor="phone_number" className="form-label">
             Phone Number
           </label>
           <input
             type="text"
             placeholder="Enter your Phone number"
-            onChange={(e) => handleFormFieldChange("phone", e)}
+            onChange={onChange}
             className="form-control"
-            id="phone"
+            id="phone_number"
+            value={phone_number}
+            required
           />
         </div>
         <div className="mb-3 form-group">
-          <i className="iconsax" data-icon="lock-2"></i>
+          <FaFirstOrderAlt className="iconsax" size={45} />
           <label htmlFor="password" className="form-label">
             Password
           </label>
           <input
             type="password"
             placeholder="Enter your password "
-            onChange={(e) => handleFormFieldChange("password", e)}
+            onChange={onChange}
             className="form-control"
             id="password"
+            value={password}
+            required
           />
         </div>
         <div className="mb-3 form-group">
-          <i className="iconsax" data-icon="lock-2"></i>
-          <label htmlFor="password1" className="form-label">
+          <FaFirstOrderAlt className="iconsax" size={45} />
+          <label htmlFor="re_password" className="form-label">
             Confirm Password
           </label>
           <input
             type="password"
             placeholder="Enter your confirm password "
-            onChange={(e) => handleFormFieldChange("passwordConfirm", e)}
+            onChange={onChange}
             className="form-control"
-            id="password1"
+            id="re_password"
+            value={re_password}
+            required
           />
         </div>
 
-        <a
+        <button
+          type="submit"
           data-cursor="pointer"
           className="btn-solid w-100 text-center mt-4 pointer-link"
-          onClick={(e) => createAccount(e)}
+          disabled={isLoading}
         >
-          SignUp
-        </a>
+          {isLoading ? <Spinner /> : "SignUp"}
+        </button>
 
         <h4 className="text-title text-center mt-2">
           Already have an account?{" "}

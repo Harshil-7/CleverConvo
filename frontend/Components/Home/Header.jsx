@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import Link from "next/link";
-
-//INTERNAL IMPORT
+import { useRouter } from "next/router";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { logout as setLogout } from "../../redux/features/authSlice";
+import { useLogoutMutation } from "../../redux/features/authApiSlice";
 import { useStateContext } from "../../Context/index";
 
 const Header = () => {
-  const [activeStyle, setActiveStyle] = useState("Home"); // Set default active style
+  const [activeStyle, setActiveStyle] = useState("Home");
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { isAuthenticated } = useStateContext();
 
   //NAV MENU
   const menuList = [
@@ -36,9 +42,28 @@ const Header = () => {
     },
   ];
 
+  // useEffect(() => {
+  //   // Check isAuthenticated value whenever it changes
+  //   console.log(isAuthenticated);
+  // }, [isAuthenticated]);
+
   const handleLinkClick = (style) => {
     setActiveStyle(style);
   };
+
+  const handleLogout = () => {
+    logout(undefined)
+      .unwrap()
+      .then(() => {
+        console.log(isAuthenticated);
+        isAuthenticated = false;
+        console.log(isAuthenticated);
+      })
+      .finally(() => {
+        router.push("");
+      });
+  };
+
   return (
     <header>
       <button
@@ -101,33 +126,26 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      <Link href="/login">
-        <a
+      {isAuthenticated ? (
+        <button
           data-cursor="pointer"
           className="btn btn-theme d-sm-inline-block d-none"
+          onClick={handleLogout}
+          role="button"
         >
-          <span>Login Now</span>
-        </a>
-      </Link>
-
-      <span className="new_space"></span>
-      {/* {address ? (
-        <a
-          onClick={() => {}}
-          data-cursor="pointer"
-          className="btn btn-theme d-sm-inline-block d-none"
-        >
-          <span>Connect</span>
-        </a>
+          <span>Logout</span>
+        </button>
       ) : (
-        <a
-          onClick={() => {}}
-          data-cursor="pointer"
-          className="btn btn-theme d-sm-inline-block d-none"
-        >
-          <span>Disconnect</span>
-        </a>
-      )} */}
+        <Link href="/login">
+          <a
+            data-cursor="pointer"
+            className="btn btn-theme d-sm-inline-block d-none"
+          >
+            <span>Login Now</span>
+          </a>
+        </Link>
+      )}
+      <span className="new_space"></span>
     </header>
   );
 };

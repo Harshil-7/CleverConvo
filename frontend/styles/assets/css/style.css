@@ -972,7 +972,7 @@ li {
 .auth-form .form-group .iconsax {
   position: absolute;
   left: 14px;
-  bottom: calc(10px + 3 * (100vw - 320px) / 1600);
+  bottom: calc(3 * (100vw - 320px) / 1600);
   border-right: 1px solid rgba(var(--content-color), 1);
   padding-right: 14px;
 }

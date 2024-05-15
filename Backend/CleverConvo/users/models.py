@@ -53,7 +53,6 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
         ],
         max_length=10,
     )
-    profile_pic = CloudinaryField('image', default=None)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -63,7 +62,7 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name','last_name','phone_number','profile_pic']
+    REQUIRED_FIELDS = ['first_name','last_name','phone_number']
 
     def __str__(self):
         return self.email

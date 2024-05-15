@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import GenerateImageView
+from .views import FormSubmissionView , GenerateResponseView
 
 urlpatterns = [
-    path('generate-image/', GenerateImageView.as_view(), name='generate image'),
+    path('', FormSubmissionView.as_view(), name='Generate Response'),
 ]

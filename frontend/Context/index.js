@@ -6,9 +6,9 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const APP_NAME = "CLEVERCONVO";
+  const isAuthenticated = false;
   return (
-    <StateContext.Provider value={{ APP_NAME }}>
+    <StateContext.Provider value={{ isAuthenticated }}>
       {children}
     </StateContext.Provider>
   );

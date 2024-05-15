@@ -198,7 +198,7 @@ REST_FRAMEWORK = {
         'users.authentication.CustomJWTAuthentication',
     ],
      'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ],
 
 }
@@ -236,7 +236,7 @@ DJOSER = {
 AUTH_COOKIE = 'access'
 AUTH_COOKIE_ACCESS_MAX_AGE = 60*5
 AUTH_COOKIE_REFRESH_MAX_AGE = 60*60*24
-AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE','True') == 'True'
+AUTH_COOKIE_SECURE =True
 AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'
 AUTH_COOKIE_SAMESITE = 'None'
@@ -259,14 +259,10 @@ SOCIAL_AUTH_GITHUB_EXTRA_DATA = ['first_name', 'last_name']
 
 
 
-
-# # USER PASSWORD RESET LINK TIME OUT CONFIGURATIONS
-# PASSWORD_RESET_TIMEOUT = 900 #900 SEC = 15 MIN
-
 #Cors Sttings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ] 
 
-CORS_ALLOWED_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True

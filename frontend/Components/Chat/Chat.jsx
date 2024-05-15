@@ -5,7 +5,7 @@ import Link from "next/link";
 
 //internal import
 import { Form } from "./index";
-import { useStateContext } from "../../Context/index";
+// import { useStateContext } from "../../Context/index";
 
 const Chat = () => {
   //State Variable
@@ -31,7 +31,7 @@ const Chat = () => {
     "Image Generator",
     "Music Generator",
     "Video Generator",
-    "Image Description",
+    // "Image Description",
   ];
 
   return (

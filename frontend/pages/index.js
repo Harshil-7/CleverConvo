@@ -15,10 +15,10 @@ import {
   Testimonial,
   Service,
 } from "../Components/Home/index";
-import { useStateContext } from "../Context/index";
+// import { useStateContext } from "../Context/index";
 
 const index = () => {
-  const { APP_NAME } = useStateContext();
+  // const { APP_NAME } = useStateContext();
   return (
     <div>
       <Header />
